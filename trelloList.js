@@ -9,6 +9,19 @@ const TRACKED_LISTS = [
     "5b6439043ca618117a4670fd",
 ]
 
+function colorizeTag(tag) {
+    switch (tag) {
+        case "Long":
+            return "{red-fg}Long{/}"
+        case "Average":
+            return "{cyan-fg}Average{/}"
+        case "Short":
+            return "{green-fg}Short{/}"
+        default:
+            return tag
+    }
+}
+
 function fetchCardsFromList(id) {
     return new Promise((resolve, reject) => {
         trello.getCardsOnList(id, (err, res) => {
@@ -25,7 +38,7 @@ function fetchCardsFromList(id) {
                                           ) !== -1
                                   )[0] || ""
 
-                          return [card.name, tag]
+                          return [card.name, colorizeTag(tag)]
                       })
                     : []
             )

@@ -19,7 +19,7 @@ var stepsBar = grid.set(0, 8, 4, 4, contrib.bar, {
     barBgColor: "red",
 })
 var wakatimeBar = grid.set(0, 4, 4, 4, contrib.bar, {
-    label: "Wakatime",
+    label: "Wakatime (mins)",
     barWidth: 5,
     barSpacing: 6,
     xOffset: 2,
