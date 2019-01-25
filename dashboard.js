@@ -7,6 +7,7 @@ var loadGmail = require("./gmailList")
 var loadTrello = require("./trelloList")
 var loadHeadspace = require("./headspace")
 var loadGithub = require("./github")
+var loadBering = require("./bering")
 var opn = require("opn")
 var screen = blessed.screen()
 
@@ -16,7 +17,6 @@ var stepsBar = grid.set(0, 8, 4, 4, contrib.bar, {
     label: "Steps",
     barWidth: 5,
     barSpacing: 6,
-    xOffset: 2,
     maxHeight: 9,
     barBgColor: "red",
 })
@@ -24,7 +24,6 @@ var wakatimeBar = grid.set(0, 4, 4, 4, contrib.bar, {
     label: "Wakatime (mins)",
     barWidth: 5,
     barSpacing: 6,
-    xOffset: 2,
     maxHeight: 9,
 })
 
@@ -56,15 +55,16 @@ var trelloTable = grid.set(4, 0, 4, 6, contrib.table, {
 var headspaceBox = grid.set(4, 8, 2, 4, blessed.box, {
     content: "\n Current streak: ? \n\n Total minutes meditated: ?",
     label: "Headspace",
-    xOffset: 2,
-    xPadding: 2,
     tags: true,
 })
 var githubBox = grid.set(6, 8, 2, 4, blessed.box, {
     content: "\n Current streak: ? \n\n Contributions made: ?",
     label: "Github",
-    xOffset: 2,
-    xPadding: 2,
+    tags: true,
+})
+var beringBox = grid.set(4, 6, 4, 2, blessed.box, {
+    content: "\n Travis: ?\n\n Heroku: ?",
+    label: "Bering",
     tags: true,
 })
 
@@ -75,6 +75,7 @@ loadStepsData(stepsBar, screen)
 loadWakatime(wakatimeBar, screen)
 loadGmail(gmailTable, screen)
 loadTrello(trelloTable, screen)
+loadBering(beringBox, screen)
 let herokuProcess = loadHeroku(herokuLog, screen)
 
 screen.key(["escape", "q", "C-c"], function(ch, key) {
@@ -97,11 +98,13 @@ screen.key(["C-r"], function(ch, key) {
         "\n Current streak: ? \n\n Total minutes meditated: ?"
     )
     githubBox.setContent("\n Current streak: ? \n\n Contributions made: ?")
-
+    beringBox.setContent("\n Travis: ?\n\n Heroku: ?")
     clearLog(herokuLog)
+    screen.render()
     if (herokuProcess) herokuProcess.kill()
 
     loadStepsData(stepsBar, screen)
+    loadBering(beringBox, screen)
     loadGithub(githubBox, screen)
     loadHeadspace(headspaceBox, screen)
     loadWakatime(wakatimeBar, screen)
