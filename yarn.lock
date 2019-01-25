@@ -176,6 +176,11 @@ combined-stream@^1.0.6, combined-stream@~1.0.6:
   dependencies:
     delayed-stream "~1.0.0"
 
+contribution@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/contribution/-/contribution-3.0.0.tgz#adb43b07346933c2e033aec637c829efe6ffc31c"
+  integrity sha512-P/wsQkZlem5M3yHcKWWMHAVUTL0+OpcISUTfMDB4VU6xBi6Urud2nonJkcLn5nyFU7BEwWIROwsDjT/Z9ymwOA==
+
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"

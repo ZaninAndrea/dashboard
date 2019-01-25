@@ -5,6 +5,8 @@ var loadHeroku = require("./herokuLogs")
 var loadWakatime = require("./wakatime")
 var loadGmail = require("./gmailList")
 var loadTrello = require("./trelloList")
+var loadHeadspace = require("./headspace")
+var loadGithub = require("./github")
 var opn = require("opn")
 var screen = blessed.screen()
 
@@ -51,7 +53,22 @@ var trelloTable = grid.set(4, 0, 4, 6, contrib.table, {
     columnWidth: [50, 30],
 })
 
+var headspaceBox = grid.set(4, 8, 2, 4, blessed.box, {
+    content: "\n Current streak: ? \n\n Total minutes meditated: ?",
+    label: "Headspace",
+    xOffset: 2,
+    xPadding: 2,
+})
+var githubBox = grid.set(6, 8, 2, 4, blessed.box, {
+    content: "\n Current streak: ? \n\n Contributions made: ?",
+    label: "Github",
+    xOffset: 2,
+    xPadding: 2,
+})
+
 clearLog(herokuLog)
+loadGithub(githubBox, screen)
+loadHeadspace(headspaceBox, screen)
 loadStepsData(stepsBar, screen)
 loadWakatime(wakatimeBar, screen)
 loadGmail(gmailTable, screen)
@@ -74,11 +91,17 @@ screen.key(["C-r"], function(ch, key) {
     wakatimeBar.setData({ titles: [], data: [] })
     gmailTable.setData({ headers: [], data: [] })
     trelloTable.setData({ headers: [], data: [] })
+    headspaceBox.setContent(
+        "\n Current streak: ? \n\n Total minutes meditated: ?"
+    )
+    githubBox.setContent("\n Current streak: ? \n\n Contributions made: ?")
 
     clearLog(herokuLog)
     if (herokuProcess) herokuProcess.kill()
 
     loadStepsData(stepsBar, screen)
+    loadGithub(githubBox, screen)
+    loadHeadspace(headspaceBox, screen)
     loadWakatime(wakatimeBar, screen)
     loadGmail(gmailTable, screen)
     loadTrello(trelloTable, screen)
