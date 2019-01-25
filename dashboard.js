@@ -58,12 +58,14 @@ var headspaceBox = grid.set(4, 8, 2, 4, blessed.box, {
     label: "Headspace",
     xOffset: 2,
     xPadding: 2,
+    tags: true,
 })
 var githubBox = grid.set(6, 8, 2, 4, blessed.box, {
     content: "\n Current streak: ? \n\n Contributions made: ?",
     label: "Github",
     xOffset: 2,
     xPadding: 2,
+    tags: true,
 })
 
 clearLog(herokuLog)

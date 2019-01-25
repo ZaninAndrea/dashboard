@@ -1,6 +1,14 @@
 var request = require("request")
 require("dotenv").config()
 
+function colorizeStreak(streak) {
+    return streak === 0
+        ? `{red-fg}0{/}`
+        : streak < 20
+        ? `{green-fg}${streak}{/}`
+        : `{blue-fg}${streak}{/}`
+}
+
 function loadMeditation(box, screen) {
     var options = {
         method: "GET",
@@ -21,7 +29,9 @@ function loadMeditation(box, screen) {
         )[0].attributes.currentValue
 
         box.setContent(
-            `\n Current streak: ${streak} \n\n Total minutes meditated: ${totalMinutes}`
+            `\n Current streak: ${colorizeStreak(
+                streak
+            )} \n\n Total minutes meditated: ${totalMinutes}`
         )
         screen.render()
     })
